@@ -6,13 +6,14 @@ library(tidyr)
 presents <- read.csv("adventofcode2015_2.txt", header = FALSE)
 
 
-#Create a function to find the minimum of n cols
+#Create a function to find the minimum of n cols. 
+#NOTE: this is a bare bones function so no error catches are created. 
 min_x_cols <- function(data, col_names){
   
   #First find the min of the cols...
   mins_value <- apply(data[col_names], MARGIN = 1, FUN = min)
   
-  #...and then attach as a new col
+  #...and then attach as a new col to the provided data. 
   new_df <- cbind(data, mins_value)
   
   #Return the new dataframe
@@ -41,7 +42,7 @@ SA_presents <- split_presents %>%
 #Find A{smallest side}:
 A_min_presents <- min_x_cols(data = SA_presents, col_names = c("prod_lw", "prod_wh", "prod_lh"))
 
-#Calculate the overall total wrapping paper = SA + A_min
+#Calculate the overall total wrapping paper = SA + A{smallest side}
 total_wp <- sum(A_min_presents$SA + A_min_presents$mins_value)
 total_wp
 
@@ -60,6 +61,6 @@ vol_peri_presents <- split_presents %>%
 #Find the perimeter{smallest side}:
 peri_min_presents <- min_x_cols(data = vol_peri_presents, col_names = c("peri_1", "peri_2", "peri_3"))
 
-#Calculate the overall total ribbon = bow_vol + peri_min
+#Calculate the overall total ribbon = bow_vol + perimeter{smallest side}
 total_ribb <- sum(peri_min_presents$bow_vol + peri_min_presents$mins_value)
 total_ribb
