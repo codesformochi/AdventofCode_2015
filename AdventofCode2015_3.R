@@ -17,6 +17,7 @@ df_loc <- data.frame(location = "")
 x <- 0
 y <- 0
 
+#Add the starting location
 df_loc[1,] <- paste(x, y, sep = ", ")
 
 #For each character in directions...
@@ -55,24 +56,23 @@ v_directions <- unlist(str_split(directions, ""))
 #Find the coordinates of his location
 houses <- coord_tracking(v_directions)
 
-#Find the number of unique coordinates/homes + 1 (Santa's starting location)
+#Find the number of unique coordinates/homes
 nrow(unique(houses))
 
 
 #PART2
 #We track Santa's and Robo-Santa's location. 
-#Separate directions by every other starting with Santa
+#Separate directions by every other index starting with Santa
 san_keep <- seq(from = 1, to = length(v_directions), by = 2)
 robo_keep <- seq(from = 2, to = length(v_directions), by = 2)   
 
 san_directions <- v_directions[san_keep]
 robo_directions <- v_directions[robo_keep]
 
-#Track Santa's and Robo-Santa's locations
+#Find the coordinates of Santa's and Robo-Santa's locations
 san_houses <- coord_tracking(san_directions)
 robo_houses <- coord_tracking(robo_directions)
 
 #Identify the unique locations 
 all_houses <- rbind(san_houses, robo_houses)
-
 nrow(unique(all_houses))
